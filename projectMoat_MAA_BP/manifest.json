@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Men-at-Arms - Guard Posts Full Version",
+    "description": "Defend the walls!  Adds town militia/castle guards to your Minecraft world - assign them to posts.  Many added features over the free version.",
+    "uuid": "0394d09a-79db-4d1b-b42a-1225e8e9ece5",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 16, 0]
+  },
+  "modules": [
+    {
+      "description": "Project Moat Add-on - no holiday creator features",
+      "type": "data",
+      "uuid": "e3edec16-8603-4d8a-a369-6299ccc4c410",
+      "version": [1, 0, 0]
+    },
+    {
+    "type": "script",
+    "language": "javascript",
+    "uuid": "fc4c74c9-02c6-4858-887e-74daa54e17ed",
+    "version": [1, 0, 0],
+    "entry": "scripts/main.js"
+  }
+  ],
+  "dependencies": [
+    {
+      "uuid": "0312b289-1bd4-4dbd-a15b-79af4a3886b9",
+      "version": [1, 0, 0]
+    },
+    {
+    "module_name": "@minecraft/server",
+    "version": "2.6.0-beta"
+  }
+  ]
+}

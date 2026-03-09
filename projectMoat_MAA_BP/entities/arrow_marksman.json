@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": { "identifier": "projectmoat:arrow_marksman", "is_spawnable": false, "is_summonable": true, "is_experimental": false },
+    "components": {
+      "minecraft:projectile": {
+        "power": 1.6,
+        "gravity": 0.05,
+        "on_hit": {
+          "impact_damage": {
+            "damage": [8, 11],
+            "knockback": true,
+            "destroy_on_hit": true
+          }
+        }
+      }
+    }
+  }
+}

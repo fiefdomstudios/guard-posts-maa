@@ -1,0 +1,425 @@
+{
+  "format_version": "1.19.4",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "projectmoat:recruit",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "projectmoat:become_hunter": {
+        "minecraft:transformation": {
+          "into": "projectmoat:hunter",
+          "delay": 0.5
+        }
+      },
+      "projectmoat:is_recruit": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/recruit_gear.json"
+        },
+        "minecraft:attack": { "damage": 3}
+      },
+      "projectmoat:is_corporal": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/corporal_gear.json"
+        },
+        "minecraft:attack": { "damage": 4}
+      },
+      "projectmoat:is_sergeant": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/sergeant_gear.json"
+        },
+        "minecraft:attack": { "damage": 5}
+      },
+      "projectmoat:is_veteran": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/veteran_gear.json"
+        },
+        "minecraft:attack": { "damage": 6}
+      },
+      "projectmoat:is_champion": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/champion_gear.json"
+        },
+        "minecraft:attack": { "damage": 8}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": ["villager", "mob", "militia", "cat"]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/recruit_loot.json"
+      },
+      "minecraft:home": {
+        "restriction_radius": 128
+      },
+      "minecraft:behavior.go_home":{
+        "priority": 5,
+        "goal_radius": 1.50,
+        "interval": 5,
+        "speed_multiplier": 1.15
+    },
+    "minecraft:behavior.random_look_around": {
+      "look_distance": 16,
+      "look_time": [2,4],
+      "priority": 8,
+      "probability": 0.01
+    },
+    "minecraft:breathable": {
+      "total_supply": 15,
+      "suffocate_time": 0
+    },
+    "minecraft:health": {
+      "value": 20,
+      "max": 20
+    },
+    "minecraft:healable": {
+      "force_use": false,
+      "items": [
+        { "item": "minecraft:apple", "heal_amount": 4,
+          "effects": [ { "name": "regeneration", "duration": 5, "amplifier": 0, "chance": 1.0 } ] },
+        { "item": "minecraft:cooked_beef", "heal_amount": 8,
+          "effects": [ { "name": "regeneration", "duration": 5, "amplifier": 0, "chance": 1.0 } ] }
+      ]
+    },
+    "minecraft:hurt_on_condition": {
+      "damage_conditions": [
+        {
+          "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+          "cause": "lava",
+          "damage_per_tick": 4
+        }
+      ]
+    },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.6
+      },
+      "minecraft:equipment":{
+      "table": "loot_tables/entities/recruit_gear.json"
+  },
+      "minecraft:equip_item": {},
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement": {
+        "value": 0.5
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "can_walk": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "search_range": 128,
+        "search_height": 8
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:nameable": {
+        "allow_name_tag_renaming": true,
+        "always_show": false
+      },
+      "minecraft:physics": {
+        "has_collision": true,
+        "has_gravity": true
+      },
+      "minecraft:persistent": {},
+      
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "fall",
+          "deals_damage": true
+        }
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:iron_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_corporal",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:emerald_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_sergeant",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:gold_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_veteran",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:diamond_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_champion",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "projectmoat:guardpost"
+                  }
+                ]
+              },
+              "event": "projectmoat:revert_to_recruit",
+              "target": "self"
+            },
+            "interact_text": "action.interact.revert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          }
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 3
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 1,
+        "track_target": true
+      },
+      "minecraft:behavior.move_towards_target": {
+        "priority": 2,
+        "speed_multiplier": 1.1,
+        "within_radius": 16
+      },
+      "minecraft:behavior.float": {
+        "priority": 4
+    },
+      "minecraft:behavior.move_to_land": {
+        "priority": 4,
+        "search_range": 16,
+        "search_height": 16,
+        "goal_radius": 0,
+        "search_count": 10
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "must_reach": true,
+        "must_see": true,
+        "entity_types": [
+           {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                },
+                {
+                  "test": "in_water",
+                  "subject": "other",
+                  "operator": "!="
+              }
+              ]
+            },
+            "within_default": 18
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "hoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                },
+                {
+                  "test": "in_water",
+                  "subject": "other",
+                  "operator": "!="
+              }
+              ]
+            },
+            "max_dist": 24
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                },
+                {
+                  "test": "in_water",
+                  "subject": "other",
+                  "operator": "!="
+              }
+              ]
+            },
+            "max_dist": 24
+          }
+        ]
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 2,
+        "alert_same_type": true,
+        "entity_types": {
+          "filters":{
+            "all_of": [
+              {
+              "test": "is_family",
+              "subject": "other",
+              "operator": "!=",
+              "value": "creeper"
+              },
+              {
+              "test": "is_family",
+              "subject": "other",
+              "operator": "!=",
+              "value": "militia"
+              },
+              {
+                "test": "is_family",
+                "subject": "other",
+                "operator": "!=",
+                "value": "player"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "events": {
+      "projectmoat:transform_to_hunter": {
+        "remove": {"component_groups": ["projectmoat:is_recruit", "projectmoat:is_corporal", "projectmoat:is_sergeant", "projectmoat:is_veteran", "projectmoat:is_champion"]},
+        "add": {"component_groups": ["projectmoat:become_hunter"]
+        }
+      },
+      "projectmoat:revert_to_recruit": {
+        "remove": {"component_groups": ["projectmoat:is_corporal", "projectmoat:is_sergeant", "projectmoat:is_veteran", "projectmoat:is_champion"]},
+        "add": {"component_groups": ["projectmoat:is_recruit"]
+        }
+      },
+      "projectmoat:convert_to_corporal": {
+        "remove": {"component_groups": ["projectmoat:is_recruit", "projectmoat:is_sergeant", "projectmoat:is_veteran", "projectmoat:is_champion"]},
+        "add": {"component_groups": ["projectmoat:is_corporal"]
+        }
+      },
+      "projectmoat:convert_to_sergeant": {
+        "remove": {"component_groups": ["projectmoat:is_recruit", "projectmoat:is_corporal", "projectmoat:is_veteran", "projectmoat:is_champion"]},
+        "add": {"component_groups": ["projectmoat:is_sergeant"]
+        }
+      },
+      "projectmoat:convert_to_veteran": {
+        "remove": {"component_groups": ["projectmoat:is_recruit", "projectmoat:is_corporal", "projectmoat:is_sergeant", "projectmoat:is_champion"]},
+        "add": {"component_groups": ["projectmoat:is_veteran"]
+        }
+      },
+      "projectmoat:convert_to_champion": {
+        "remove": {"component_groups": ["projectmoat:is_recruit", "projectmoat:is_corporal", "projectmoat:is_sergeant", "projectmoat:is_veteran"]},
+        "add": {"component_groups": ["projectmoat:is_champion"]
+        }
+      }
+    }
+  }
+}

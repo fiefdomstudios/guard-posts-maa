@@ -1,0 +1,13 @@
+pack.name=Men-at-Arms - Guard Posts Full Version	######Guard post is a spot or area assigned to a sentry
+pack.description=Defend the walls!  Adds town militia/castle guards to your Minecraft world - assign them to posts.  Many added features over the free version.	###Posts are the spots where guards carry out their duties.
+author.name=Created by Fiefdom Studios, LLC	###Fiefdom Studios, LLC is a company name.
+entity.projectmoat:recruit.name=Recruit	###A recruit is an entry-level soldier with limited training.
+entity.projectmoat:hunter.name=Hunter	###A hunter is an entity that is armed with a bow and arrows.
+item.spawn_egg.entity.projectmoat:recruit.name=Spawn Recruit	###A recruit is an entry-level soldier with limited training.
+item.spawn_egg.entity.projectmoat:hunter.name=Spawn Hunter	###A hunter is an entity that is armed with a bow and arrows.
+tile.projectmoat:guardpost.name=Guard Post	###A post is a spot where guards carry out their duties.
+tile.projectmoat:archerpost.name=Archer Post	###A post is a spot where guards carry out their duties.  An archer is an entity armed with a bow and arrows.
+action.interact.convert=Change equipment?	###This text is intended to alert the player that they may alter the weapon and armor currently equipped to the guard.
+action.interact.revert=Revert to original equipment?	###This text is intended to alert the player that they may cause the guard/hunter to revert to the equipment they had when they were spawned.
+action.interact.transformtohunter=Convert to hunter?	###This text is intended to alert the player that they may convert the guard to an archer.
+action.interact.transformtorecruit=Convert to recruit?	###This text is intended to alert the player that they may convert the archer to a guard.

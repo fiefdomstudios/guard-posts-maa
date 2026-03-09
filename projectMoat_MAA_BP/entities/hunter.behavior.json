@@ -1,0 +1,414 @@
+{
+  "format_version": "1.19.4",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "projectmoat:hunter",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "projectmoat:become_recruit": {
+        "minecraft:transformation": {
+          "into": "projectmoat:recruit",
+          "delay": 0.5
+        }
+      },
+      "projectmoat:is_hunter": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/hunter_gear.json"
+        },
+        "minecraft:shooter": { "def": "projectmoat:arrow_hunter", "sound": "bow" },
+        "minecraft:behavior.ranged_attack": { "priority": 0, "attack_interval_min": 1.2, "attack_interval_max": 3.2, "attack_radius": 18.0, "ranged_fov": 145, "target_in_sight_time": 0.1 }
+      },
+      "projectmoat:is_yeoman": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/yeoman_gear.json"
+        },
+        "minecraft:shooter": { "def": "projectmoat:arrow_yeoman", "sound": "bow" },
+        "minecraft:behavior.ranged_attack": { "priority": 0, "attack_interval_min": 1.1, "attack_interval_max": 3.0, "attack_radius": 20.0, "ranged_fov": 150, "target_in_sight_time": 0.1 }
+      },
+      "projectmoat:is_archer": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/archer_gear.json"
+        },
+        "minecraft:shooter": { "def": "projectmoat:arrow_archer", "sound": "bow" },
+        "minecraft:behavior.ranged_attack": { "priority": 0, "attack_interval_min": 1.0, "attack_interval_max": 2.8, "attack_radius": 22.0, "ranged_fov": 155, "target_in_sight_time": 0.1 }
+      },
+      "projectmoat:is_marksman": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/marksman_gear.json"
+        },
+        "minecraft:shooter": { "def": "projectmoat:arrow_marksman", "sound": "bow" },
+        "minecraft:behavior.ranged_attack": { "priority": 0, "attack_interval_min": 0.9, "attack_interval_max": 2.6, "attack_radius": 24.0, "ranged_fov": 160, "target_in_sight_time": 0.1 }
+      },
+      "projectmoat:is_deadeye": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/deadeye_gear.json"
+        },
+        "minecraft:shooter": { "def": "projectmoat:arrow_deadeye", "sound": "bow" },
+        "minecraft:behavior.ranged_attack": { "priority": 0, "attack_interval_min": 0.8, "attack_interval_max": 2.4, "attack_radius": 26.0, "ranged_fov": 165, "target_in_sight_time": 0.1 }
+      } 
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": ["villager", "mob", "militia", "cat"]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/recruit_loot.json"
+      },
+      "minecraft:home": {
+        "restriction_radius": 128
+      },
+      "minecraft:behavior.go_home":{
+        "priority": 3,
+        "goal_radius": 1.5,
+        "interval": 5,
+        "speed_multiplier": 1.15
+    },
+    "minecraft:behavior.random_look_around": {
+      "look_distance": 16,
+      "look_time": [2,4],
+      "priority": 2,
+      "probability": 0.02
+    },
+    "minecraft:breathable": {
+      "total_supply": 15,
+      "suffocate_time": 0
+    },
+    "minecraft:health": {
+      "value": 20,
+      "max": 20
+    },
+    "minecraft:healable": {
+      "force_use": false,
+      "items": [
+        { "item": "minecraft:apple", "heal_amount": 4,
+          "effects": [ { "name": "regeneration", "duration": 5, "amplifier": 0, "chance": 1.0 } ] },
+        { "item": "minecraft:cooked_beef", "heal_amount": 8,
+          "effects": [ { "name": "regeneration", "duration": 5, "amplifier": 0, "chance": 1.0 } ] }
+      ]
+    },
+    "minecraft:hurt_on_condition": {
+      "damage_conditions": [
+        {
+          "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+          "cause": "lava",
+          "damage_per_tick": 4
+        }
+      ]
+    },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.6
+      },
+      "minecraft:equipment":{
+        "table": "loot_tables/entities/hunter_gear.json"
+         },
+      "minecraft:equip_item": {},
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement": {
+        "value": 0.5
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "can_walk": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "search_range": 128,
+        "search_height": 8
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:nameable": {
+        "allow_name_tag_renaming": true,
+        "always_show": false
+      },
+      "minecraft:physics": {
+        "has_collision": true,
+        "has_gravity": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "fall",
+          "deals_damage": true
+        }
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:iron_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_yeoman",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:emerald_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_archer",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:gold_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_marksman",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "minecraft:diamond_block"
+                  }
+                ]
+              },
+              "event": "projectmoat:convert_to_deadeye",
+              "target": "self"
+            },
+            "interact_text": "action.interact.convert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "projectmoat:archerpost"
+                  }
+                ]
+              },
+              "event": "projectmoat:revert_to_hunter",
+              "target": "self"
+            },
+            "interact_text": "action.interact.revert",
+            "use_item": true,
+            "play_sounds": "irongolem.repair"
+          }
+        ]
+      },
+      "minecraft:shooter": {
+        "def": "minecraft:arrow"
+      },
+      "minecraft:behavior.ranged_attack": {
+        "priority": 0,
+        "attack_interval_min": 1.0,
+        "attack_interval_max": 3.0,
+        "attack_radius": 16.0,
+        "ranged_fov": 145,
+        "target_in_sight_time": 0.1
+      },
+      "minecraft:behavior.float": {
+        "priority": 4
+    },
+      "minecraft:behavior.move_to_land": {
+        "priority": 4,
+        "search_range": 16,
+        "search_height": 16,
+        "goal_radius": 0,
+        "search_count": 10
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "reselect_targets": true,
+        "within_radius": 40,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                }
+              ]
+            },
+            "within_default": 20
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "hoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ]
+            },
+            "max_dist": 28
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ]
+            },
+            "max_dist": 28
+          }
+        ]
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 2,
+        "alert_same_type": true,
+        "entity_types": {
+          "filters":{
+            "all_of": [
+              {
+              "test": "is_family",
+              "subject": "other",
+              "operator": "!=",
+              "value": "creeper"
+              },
+              {
+              "test": "is_family",
+              "subject": "other",
+              "operator": "!=",
+              "value": "militia"
+              },
+              {
+                "test": "is_family",
+                "subject": "other",
+                "operator": "!=",
+                "value": "player"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "events": {
+      "projectmoat:transform_to_recruit": {
+        "remove": {"component_groups": ["projectmoat:is_hunter", "projectmoat:is_yeoman", "projectmoat:is_archer", "projectmoat:is_marksman", "projectmoat:is_deadeye"]},
+        "add": {"component_groups": ["projectmoat:become_recruit"]
+        }
+      },
+      "projectmoat:revert_to_hunter": {
+        "remove": {"component_groups": ["projectmoat:is_yeoman", "projectmoat:is_archer", "projectmoat:is_marksman", "projectmoat:is_deadeye"]},
+        "add": {"component_groups": ["projectmoat:is_hunter"]
+        }
+      },
+      "projectmoat:convert_to_yeoman": {
+        "remove": {"component_groups": ["projectmoat:is_hunter", "projectmoat:is_archer", "projectmoat:is_marksman", "projectmoat:is_deadeye"]},
+        "add": {"component_groups": ["projectmoat:is_yeoman"]
+        }
+      },
+      "projectmoat:convert_to_archer": {
+        "remove": {"component_groups": ["projectmoat:is_hunter", "projectmoat:is_yeoman", "projectmoat:is_marksman", "projectmoat:is_deadeye"]},
+        "add": {"component_groups": ["projectmoat:is_archer"]
+        }
+      },
+      "projectmoat:convert_to_marksman": {
+        "remove": {"component_groups": ["projectmoat:is_hunter", "projectmoat:is_yeoman", "projectmoat:is_archer", "projectmoat:is_deadeye"]},
+        "add": {"component_groups": ["projectmoat:is_marksman"]
+        }
+      },
+      "projectmoat:convert_to_deadeye": {
+        "remove": {"component_groups": ["projectmoat:is_hunter", "projectmoat:is_yeoman", "projectmoat:is_archer", "projectmoat:is_marksman"]},
+        "add": {"component_groups": ["projectmoat:is_deadeye"]
+        }
+      }
+    }
+  }
+}
